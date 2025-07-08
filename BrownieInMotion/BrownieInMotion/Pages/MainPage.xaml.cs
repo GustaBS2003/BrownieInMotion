@@ -11,10 +11,10 @@ public partial class MainPage : ContentPage
 
         viewModel.PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName == nameof(viewModel.Prices))
+            if (e.PropertyName == nameof(viewModel.Simulations))
             {
-                BrownianChart.Drawable = viewModel.Prices is not null
-                    ? new BrownianChartDrawable(viewModel.Prices) 
+                BrownianChart.Drawable = viewModel.Simulations is not null
+                    ? new BrownianChartDrawable(viewModel.Simulations)
                     : null;
                 BrownianChart.Invalidate();
             }

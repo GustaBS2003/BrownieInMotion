@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using BrownieInMotion.Core.Services;
@@ -13,6 +15,8 @@ public class SimulationViewModel : INotifyPropertyChanged
     private double _mean = 0.0002;
     private int _numDays = 252;
     private double[]? _prices;
+    private int _numSimulations = 1;
+    private List<double[]>? _simulations;
 
     public double InitialPrice
     {
@@ -44,6 +48,18 @@ public class SimulationViewModel : INotifyPropertyChanged
         private set { _prices = value; OnPropertyChanged(); }
     }
 
+    public int NumSimulations
+    {
+        get => _numSimulations;
+        set { _numSimulations = value; OnPropertyChanged(); }
+    }
+
+    public List<double[]>? Simulations
+    {
+        get => _simulations;
+        private set { _simulations = value; OnPropertyChanged(); }
+    }
+
     public ICommand SimulateCommand { get; }
 
     public SimulationViewModel()
@@ -53,8 +69,14 @@ public class SimulationViewModel : INotifyPropertyChanged
 
     private void ExecuteSimulation()
     {
-        Prices = BrownianMotionService.GenerateBrownianMotion(
-            Volatility, Mean, InitialPrice, NumDays);
+        var sims = new List<double[]>();
+        for (int i = 0; i < NumSimulations; i++)
+        {
+            sims.Add(BrownianMotionService.GenerateBrownianMotion(
+                Volatility, Mean, InitialPrice, NumDays));
+        }
+        Simulations = sims;
+        Prices = sims.FirstOrDefault();
     }
 
     public event PropertyChangedEventHandler? PropertyChanged;

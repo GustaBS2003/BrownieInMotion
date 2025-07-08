@@ -48,6 +48,9 @@
                 <Label Text="Número de Dias:" />
                 <Entry Text="{Binding NumDays}" Keyboard="Numeric" />
 
+                <Label Text="Número de Simulações:" />
+                <Entry Text="{Binding NumSimulations}" Keyboard="Numeric" />
+
                 <Button Text="Simular" Command="{Binding SimulateCommand}" />
             </VerticalStackLayout>
         </Grid>

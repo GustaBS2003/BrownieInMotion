@@ -51,6 +51,9 @@
                 <Label Text="Passos por ano:" />
                 <Entry Text="{Binding StepsPerYear}" Keyboard="Numeric" />
 
+                <Label Text="Número de Simulações:" />
+                <Entry Text="{Binding NumSimulations}" Keyboard="Numeric" />
+
                 <Button Text="Simular" Command="{Binding SimulateCommand}" />
             </VerticalStackLayout>
         </Grid>

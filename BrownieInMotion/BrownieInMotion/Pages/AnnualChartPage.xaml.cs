@@ -11,10 +11,10 @@ public partial class AnnualChartPage : ContentPage
 
         viewModel.PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName == nameof(viewModel.Prices))
+            if (e.PropertyName == nameof(viewModel.Simulations))
             {
-                AnnualBrownianChart.Drawable = viewModel.Prices is not null
-                    ? new BrownianChartDrawable(viewModel.Prices)
+                AnnualBrownianChart.Drawable = viewModel.Simulations is not null
+                    ? new BrownianChartDrawable(viewModel.Simulations)
                     : null;
                 AnnualBrownianChart.Invalidate();
             }

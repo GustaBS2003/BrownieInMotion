@@ -4,42 +4,40 @@ namespace BrownieInMotion.Pages;
 
 public class BrownianChartDrawable : IDrawable
 {
-    private readonly double[] _prices;
-    private readonly IFont _fontInstance; 
+    private readonly List<double[]> _simulations;
+    private readonly IFont _fontInstance;
 
-    public BrownianChartDrawable(double[] prices, IFont? fontInstance = null) 
+    public BrownianChartDrawable(List<double[]> simulations, IFont? fontInstance = null)
     {
-        _prices = prices;
-        _fontInstance = fontInstance ?? Microsoft.Maui.Graphics.Font.Default; 
+        _simulations = simulations;
+        _fontInstance = fontInstance ?? Microsoft.Maui.Graphics.Font.Default;
     }
 
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
-        if (_prices == null || _prices.Length < 2)
+        if (_simulations == null || _simulations.Count == 0 || _simulations[0].Length < 2)
             return;
 
         canvas.Antialias = true;
 
-        double min = _prices.Min();
-        double max = _prices.Max();
+        double min = _simulations.Min(arr => arr.Min());
+        double max = _simulations.Max(arr => arr.Max());
 
         float width = dirtyRect.Width;
         float height = dirtyRect.Height;
 
-        // Calcular a maior largura de label Y dinamicamente
         string maxLabel = Math.Max(Math.Abs(min), Math.Abs(max)).ToString("F2", CultureInfo.InvariantCulture);
-        float labelWidth = canvas.GetStringSize(maxLabel, _fontInstance, 12).Width;   
+        float labelWidth = canvas.GetStringSize(maxLabel, _fontInstance, 12).Width;
         float margin = Math.Max(60f, labelWidth + 24f);
 
         float plotWidth = width - 2 * margin;
         float plotHeight = height - 2 * margin;
 
-        float xStep = plotWidth / (_prices.Length - 1);
         double yScale = (max - min) == 0 ? 1 : (max - min);
 
         // Gridlines horizontais e verticais
         int yTicks = 5;
-        int xTicks = Math.Min(10, _prices.Length - 1);
+        int xTicks = Math.Min(10, _simulations[0].Length - 1);
 
         canvas.StrokeColor = Colors.LightGray;
         canvas.StrokeSize = 1;
@@ -88,7 +86,7 @@ public class BrownianChartDrawable : IDrawable
         for (int i = 0; i <= xTicks; i++)
         {
             float x = margin + (i * plotWidth / xTicks);
-            int idx = (int)Math.Round(i * (_prices.Length - 1) / (double)xTicks);
+            int idx = (int)Math.Round(i * (_simulations[0].Length - 1) / (double)xTicks);
 
             // Tick
             canvas.StrokeColor = Colors.Gray;
@@ -107,30 +105,38 @@ public class BrownianChartDrawable : IDrawable
                 VerticalAlignment.Top);
         }
 
-        // Linha do gráfico
-        canvas.StrokeColor = Colors.MediumPurple;
-        canvas.StrokeSize = 2.5f;
-        for (int i = 1; i < _prices.Length; i++)
+        // Desenhar todas as linhas
+        var colors = new[] { Colors.MediumPurple, Colors.Orange, Colors.Green, Colors.Red, Colors.Blue, Colors.Teal, Colors.Brown, Colors.Pink, Colors.Gray, Colors.Black };
+        for (int s = 0; s < _simulations.Count; s++)
         {
-            float x1 = margin + (i - 1) * xStep;
-            float y1 = margin + plotHeight - (float)((_prices[i - 1] - min) / yScale * plotHeight);
-            float x2 = margin + i * xStep;
-            float y2 = margin + plotHeight - (float)((_prices[i] - min) / yScale * plotHeight);
+            var prices = _simulations[s];
+            var color = colors[s % colors.Length];
+            canvas.StrokeColor = color;
+            canvas.StrokeSize = 2.5f;
+            float xStep = plotWidth / (prices.Length - 1);
 
-            canvas.DrawLine(x1, y1, x2, y2);
+            // Desenha a linha
+            for (int i = 1; i < prices.Length; i++)
+            {
+                float x1 = margin + (i - 1) * xStep;
+                float y1 = margin + plotHeight - (float)((prices[i - 1] - min) / yScale * plotHeight);
+                float x2 = margin + i * xStep;
+                float y2 = margin + plotHeight - (float)((prices[i] - min) / yScale * plotHeight);
+                canvas.DrawLine(x1, y1, x2, y2);
+            }
+
+            // Destaca máximo e mínimo desta simulação
+            int maxIdx = Array.IndexOf(prices, prices.Max());
+            int minIdx = Array.IndexOf(prices, prices.Min());
+            float xMax = margin + maxIdx * xStep;
+            float yMax = margin + plotHeight - (float)((prices[maxIdx] - min) / yScale * plotHeight);
+            float xMin = margin + minIdx * xStep;
+            float yMin = margin + plotHeight - (float)((prices[minIdx] - min) / yScale * plotHeight);
+
+            canvas.FillColor = Colors.Red.WithAlpha(0.7f);
+            canvas.FillCircle(xMax, yMax, 5);
+            canvas.FillColor = Colors.Blue.WithAlpha(0.7f);
+            canvas.FillCircle(xMin, yMin, 5);
         }
-
-        // Destaque para máximo e mínimo
-        int maxIdx = Array.IndexOf(_prices, max);
-        int minIdx = Array.IndexOf(_prices, min);
-        float xMax = margin + maxIdx * xStep;
-        float yMax = margin + plotHeight - (float)((max - min) / yScale * plotHeight);
-        float xMin = margin + minIdx * xStep;
-        float yMin = margin + plotHeight - (float)((min - min) / yScale * plotHeight);
-
-        canvas.FillColor = Colors.Red;
-        canvas.FillCircle(xMax, yMax, 5);
-        canvas.FillColor = Colors.Blue;
-        canvas.FillCircle(xMin, yMin, 5);
     }
 }
