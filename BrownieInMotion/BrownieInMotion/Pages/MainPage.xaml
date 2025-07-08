@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    x:Class="BrownieInMotion.Pages.MainPage"  
+    Title="Simulação Diária Browniana">  
+    <ScrollView>  
+        <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">  
+            <Border  
+                Grid.Column="0"  
+                Stroke="MediumPurple"  
+                BackgroundColor="White"  
+                StrokeShape="RoundRectangle"  
+                StrokeThickness="1"  
+                HorizontalOptions="Fill"  
+                VerticalOptions="Fill">
+                <Grid>
+                    <GraphicsView x:Name="BrownianChart"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+                        <GraphicsView.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnChartTapped"/>
+                        </GraphicsView.GestureRecognizers>
+                    </GraphicsView>
+                    <Label x:Name="TooltipLabel"
+                            IsVisible="False"
+                            BackgroundColor="White"
+                            TextColor="Black"
+                            Padding="6,2"
+                            FontSize="14"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Start"
+                            TranslationX="0"
+                            TranslationY="0"/>
+                </Grid>
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Start" WidthRequest="220">  
+                <Label Text="Preço Inicial:" />  
+                <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />  
+
+                <Label Text="Volatilidade (ex: 0.2 para 20%):" />  
+                <Entry Text="{Binding Volatility}" Keyboard="Numeric" />  
+
+                <Label Text="Média do Retorno Diário:" />
+                <Entry Text="{Binding Mean}" Keyboard="Numeric" />  
+
+                <Label Text="Número de Dias:" />  
+                <Entry Text="{Binding NumDays}" Keyboard="Numeric" />  
+
+                <Button Text="Simular" Command="{Binding SimulateCommand}" />  
+            </VerticalStackLayout>  
+        </Grid>  
+    </ScrollView>  
+</ContentPage>

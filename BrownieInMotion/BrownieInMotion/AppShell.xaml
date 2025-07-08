@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BrownieInMotion.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:BrownieInMotion.Pages"
+    Title="BrownieInMotion">
+
+    <ShellContent
+        Title="Simulação Diária"
+        ContentTemplate="{DataTemplate pages:MainPage}" />
+
+    <ShellContent
+        Title="Simulação Anual"
+        ContentTemplate="{DataTemplate pages:AnnualChartPage}" />
+
+</Shell>
