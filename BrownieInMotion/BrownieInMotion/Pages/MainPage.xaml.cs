@@ -1,4 +1,5 @@
 using BrownieInMotion.Core.ViewModels;
+using BrownieInMotion.Pages; // para LineStyle
 
 namespace BrownieInMotion.Pages;
 
@@ -11,10 +12,21 @@ public partial class MainPage : ContentPage
 
         viewModel.PropertyChanged += (s, e) =>
         {
-            if (e.PropertyName == nameof(viewModel.Simulations))
+            if (e.PropertyName == nameof(viewModel.Simulations)
+                || e.PropertyName == nameof(viewModel.SelectedLineStyleIndex)
+                || e.PropertyName == nameof(viewModel.LineThickness)
+                || e.PropertyName == nameof(viewModel.ShowExtremes)
+                || e.PropertyName == nameof(viewModel.ShowGrid))
             {
+                var lineStyle = (LineStyle)viewModel.SelectedLineStyleIndex;
                 BrownianChart.Drawable = viewModel.Simulations is not null
-                    ? new BrownianChartDrawable(viewModel.Simulations)
+                    ? new BrownianChartDrawable(
+                        viewModel.Simulations,
+                        null,
+                        lineStyle,
+                        viewModel.LineThickness,
+                        viewModel.ShowExtremes,
+                        viewModel.ShowGrid)
                     : null;
                 BrownianChart.Invalidate();
             }

@@ -19,6 +19,12 @@ public class AnnualSimulationViewModel : INotifyPropertyChanged
     private int _numSimulations = 1;
     private List<double[]>? _simulations;
 
+    // Personalização do gráfico
+    private int _selectedLineStyleIndex = 0;
+    private double _lineThickness = 2.5;
+    private bool _showExtremes = true;
+    private bool _showGrid = true;
+
     public double InitialPrice
     {
         get => _initialPrice;
@@ -65,6 +71,31 @@ public class AnnualSimulationViewModel : INotifyPropertyChanged
     {
         get => _simulations;
         private set { _simulations = value; OnPropertyChanged(); }
+    }
+
+    // Propriedades para personalização visual
+    public int SelectedLineStyleIndex
+    {
+        get => _selectedLineStyleIndex;
+        set { _selectedLineStyleIndex = value; OnPropertyChanged(); }
+    }
+
+    public double LineThickness
+    {
+        get => _lineThickness;
+        set { _lineThickness = value; OnPropertyChanged(); }
+    }
+
+    public bool ShowExtremes
+    {
+        get => _showExtremes;
+        set { _showExtremes = value; OnPropertyChanged(); }
+    }
+
+    public bool ShowGrid
+    {
+        get => _showGrid;
+        set { _showGrid = value; OnPropertyChanged(); }
     }
 
     public ICommand SimulateCommand { get; }
