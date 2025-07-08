@@ -98,7 +98,7 @@ public class BrownianChartDrawable : IDrawable
             canvas.FontColor = Colors.Black;
             canvas.FontSize = 12;
             canvas.DrawString(
-                idx.ToString(),
+                (idx + 1).ToString(),
                 x - 12,
                 margin + plotHeight + 6,
                 24,

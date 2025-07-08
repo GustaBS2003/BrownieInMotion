@@ -3,9 +3,9 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     x:Class="BrownieInMotion.Pages.MainPage"  
-    Title="Simulação Diária Browniana">  
-    <ScrollView>  
-        <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">  
+    Title="Simulação Diária Browniana">
+    <ScrollView>
+        <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">
             <Border  
                 Grid.Column="0"  
                 Stroke="MediumPurple"  
@@ -35,21 +35,21 @@
                 </Grid>
             </Border>
 
-            <VerticalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Start" WidthRequest="220">  
-                <Label Text="Preço Inicial:" />  
-                <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />  
+            <VerticalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Start" WidthRequest="220">
+                <Label Text="Preço Inicial:" />
+                <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />
 
-                <Label Text="Volatilidade (ex: 0.2 para 20%):" />  
-                <Entry Text="{Binding Volatility}" Keyboard="Numeric" />  
+                <Label Text="Volatilidade (ex: 0.2 para 20%):" />
+                <Entry Text="{Binding Volatility}" Keyboard="Numeric" />
 
-                <Label Text="Média do Retorno Diário:" />
-                <Entry Text="{Binding Mean}" Keyboard="Numeric" />  
+                <Label Text="Média do Retorno Diário (ex: 0.0002 para 0.02%):" />
+                <Entry Text="{Binding Mean}" Keyboard="Numeric" />
 
-                <Label Text="Número de Dias:" />  
-                <Entry Text="{Binding NumDays}" Keyboard="Numeric" />  
+                <Label Text="Número de Dias:" />
+                <Entry Text="{Binding NumDays}" Keyboard="Numeric" />
 
-                <Button Text="Simular" Command="{Binding SimulateCommand}" />  
-            </VerticalStackLayout>  
-        </Grid>  
-    </ScrollView>  
+                <Button Text="Simular" Command="{Binding SimulateCommand}" />
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

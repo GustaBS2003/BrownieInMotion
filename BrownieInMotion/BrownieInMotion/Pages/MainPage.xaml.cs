@@ -44,7 +44,7 @@ public partial class MainPage : ContentPage
             return;
         }
 
-        TooltipLabel.Text = $"Dia {idx}: {vm.Prices[idx]:F2}";
+        TooltipLabel.Text = $"Dia {idx + 1}: {vm.Prices[idx]:F2}";
         TooltipLabel.IsVisible = true;
         double labelX = Math.Clamp(point.Value.X, 0, width - 80);
         double labelY = Math.Clamp(point.Value.Y, 0, height - 30);
