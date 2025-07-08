@@ -1,58 +1,82 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage  
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
     x:Class="BrownieInMotion.Pages.MainPage"  
-    Title="Simulação Diária Browniana">
-    <ScrollView>
-        <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">
+    Title="Simulação Diária Browniana">  
+    <ScrollView>  
+        <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">  
             <Border  
                 Grid.Column="0"  
                 Stroke="MediumPurple"  
-                BackgroundColor="White"  
+                BackgroundColor="LightSlateGray"  
                 StrokeShape="RoundRectangle"  
                 StrokeThickness="1"  
                 HorizontalOptions="Fill"  
-                VerticalOptions="Fill">
-                <Grid>
-                    <GraphicsView x:Name="BrownianChart"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill">
-                        <GraphicsView.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="OnChartTapped"/>
-                        </GraphicsView.GestureRecognizers>
+                VerticalOptions="Fill"  
+                Margin="0,0,0,12">  
+                <Border.Shadow>  
+                    <Shadow Brush="MediumPurple" Offset="4,4" Radius="8" Opacity="0.4"/>  
+                </Border.Shadow>  
+                <Grid>  
+                    <GraphicsView x:Name="BrownianChart"  
+                    HorizontalOptions="Fill"  
+                    VerticalOptions="Fill">  
+                        <GraphicsView.GestureRecognizers>  
+                            <TapGestureRecognizer Tapped="OnChartTapped"/>  
+                        </GraphicsView.GestureRecognizers>  
                     </GraphicsView>
-                    <Label x:Name="TooltipLabel"
-                            IsVisible="False"
-                            BackgroundColor="White"
-                            TextColor="Black"
-                            Padding="6,2"
-                            FontSize="14"
-                            VerticalOptions="Start"
-                            HorizontalOptions="Start"
-                            TranslationX="0"
-                            TranslationY="0"/>
-                </Grid>
-            </Border>
+                    <Label x:Name="TooltipLabel"  
+                            IsVisible="False"  
+                            BackgroundColor="#FFF"  
+                            TextColor="Black"  
+                            Padding="6,2"  
+                            FontSize="14"  
+                            VerticalOptions="Start"  
+                            HorizontalOptions="Start"  
+                            TranslationX="0"  
+                            TranslationY="0">
+                    </Label>  
+                </Grid>  
+            </Border>  
 
-            <VerticalStackLayout Grid.Column="1" Spacing="12" VerticalOptions="Start" WidthRequest="220">
-                <Label Text="Preço Inicial:" />
-                <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />
+            <Border Grid.Column="1"  
+                   Padding="18"  
+                   Stroke="MediumPurple"  
+                   BackgroundColor="LightSlateGray"  
+                   StrokeShape="RoundRectangle"  
+                   StrokeThickness="1" 
+                   VerticalOptions="Start"  
+                   WidthRequest="240">
+                <Border.Shadow>
+                    <Shadow Brush="MediumPurple" Offset="4,4" Radius="8" Opacity="0.4"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">  
+                    <Label Text="Preço Inicial:" FontAttributes="Bold"/>  
+                    <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />  
 
-                <Label Text="Volatilidade (ex: 0.2 para 20%):" />
-                <Entry Text="{Binding Volatility}" Keyboard="Numeric" />
+                    <Label Text="Volatilidade (ex: 0.2 para 20%):" FontAttributes="Bold"/>  
+                    <Slider Minimum="0.01" Maximum="1" Value="{Binding Volatility, Mode=TwoWay}" ThumbColor="MediumPurple" MinimumTrackColor="MediumPurple" />
+                    <Label Text="{Binding Volatility, StringFormat='Volatilidade: {0:F2}'}" FontSize="12" TextColor="GhostWhite" />  
 
-                <Label Text="Média do Retorno Diário (ex: 0.0002 para 0.02%):" />
-                <Entry Text="{Binding Mean}" Keyboard="Numeric" />
+                    <Label Text="Média do Retorno Diário (ex: 0.0002 para 0.02%):" FontAttributes="Bold"/>  
+                    <Entry Text="{Binding Mean}" Keyboard="Numeric" />  
 
-                <Label Text="Número de Dias:" />
-                <Entry Text="{Binding NumDays}" Keyboard="Numeric" />
+                    <Label Text="Número de Dias:" FontAttributes="Bold"/>  
+                    <Entry Text="{Binding NumDays}" Keyboard="Numeric" />  
 
-                <Label Text="Número de Simulações:" />
-                <Entry Text="{Binding NumSimulations}" Keyboard="Numeric" />
+                    <Label Text="Número de Simulações:" FontAttributes="Bold"/>  
+                    <Stepper Minimum="1" Maximum="100" Increment="1" Value="{Binding NumSimulations, Mode=TwoWay}" />  
+                    <Label Text="{Binding NumSimulations, StringFormat='Simulações: {0}'}" FontSize="12" TextColor="GhostWhite" />
 
-                <Button Text="Simular" Command="{Binding SimulateCommand}" />
-            </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
+                    <Button Text="Simular" Command="{Binding SimulateCommand}"   
+                            BackgroundColor="MediumPurple"   
+                            TextColor="White"  
+                            CornerRadius="8"  
+                            FontAttributes="Bold"  
+                            HeightRequest="44"/>
+                </VerticalStackLayout>  
+            </Border>  
+        </Grid>  
+    </ScrollView>  
 </ContentPage>
