@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage  
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+    x:Class="BrownieInMotion.Pages.AnnualChartPage"  
+    Title="Simulação Anual Browniana">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid Padding="24" RowDefinitions="Auto" ColumnDefinitions="*,Auto" ColumnSpacing="24">
+                <Border
+                    Grid.Column="0"
+                    Stroke="MediumPurple"
+                    StrokeShape="RoundRectangle"
+                    StrokeThickness="1"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Margin="0,0,0,12">
+                    <Border.Shadow>
+                        <Shadow Brush="MediumPurple" Offset="4,4" Radius="8" Opacity="0.4"/>
+                    </Border.Shadow>
+                    <Grid>
+                        <GraphicsView x:Name="AnnualBrownianChart"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill">
+                            <GraphicsView.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnChartTapped"/>
+                            </GraphicsView.GestureRecognizers>
+                        </GraphicsView>
+                        <Label x:Name="TooltipLabel"
+                            IsVisible="False"
+                            BackgroundColor="#FFF"
+                            TextColor="Black"
+                            Padding="6,2"
+                            FontSize="14"
+                            VerticalOptions="Start"
+                            HorizontalOptions="Start"
+                            TranslationX="0"
+                            TranslationY="0">
+                        </Label>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1"
+                       Padding="18"
+                       Stroke="MediumPurple"
+                       StrokeShape="RoundRectangle"
+                       StrokeThickness="1"
+                       VerticalOptions="Start"
+                       WidthRequest="240">
+                    <Border.Shadow>
+                        <Shadow Brush="MediumPurple" Offset="4,4" Radius="8" Opacity="0.4"/>
+                    </Border.Shadow>
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Preço Inicial:" FontAttributes="Bold"/>
+                        <Entry Text="{Binding InitialPrice}" Keyboard="Numeric" />
+
+                        <Label Text="Volatilidade (ex: 0.2 para 20%):" FontAttributes="Bold"/>
+                        <Slider Minimum="0.01" Maximum="1" Value="{Binding Volatility, Mode=TwoWay}" ThumbColor="MediumPurple" MinimumTrackColor="MediumPurple" />
+                        <Label Text="{Binding Volatility, StringFormat='Volatilidade: {0:F2}'}" FontSize="12" TextColor="GhostWhite" />
+
+                        <Label Text="Média do Retorno Anual (ex: 0.01 para 1%):" FontAttributes="Bold"/>
+                        <Entry Text="{Binding Mean}" Keyboard="Numeric" />
+
+                        <Label Text="Anos:" FontAttributes="Bold"/>
+                        <Entry Text="{Binding Years}" Keyboard="Numeric" />
+
+                        <Label Text="Passos por Ano:" FontAttributes="Bold"/>
+                        <Entry Text="{Binding StepsPerYear}" Keyboard="Numeric" />
+
+                        <Label Text="Número de Simulações:" FontAttributes="Bold"/>
+                        <Stepper Minimum="1" Maximum="100" Increment="1" Value="{Binding NumSimulations, Mode=TwoWay}" />
+                        <Label Text="{Binding NumSimulations, StringFormat='Simulações: {0}'}" FontSize="12" TextColor="GhostWhite" />
+
+                        <Button Text="Simular" Command="{Binding SimulateCommand}" 
+                                BackgroundColor="MediumPurple" 
+                                TextColor="White"
+                                CornerRadius="8"
+                                FontAttributes="Bold"
+                                HeightRequest="44"/>
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <!-- Personalização visual do gráfico -->
+            <Border Margin="24,0,24,24" Padding="18" Stroke="MediumPurple" StrokeShape="RoundRectangle" StrokeThickness="1">
+                <Border.Shadow>
+                    <Shadow Brush="MediumPurple" Offset="4,4" Radius="8" Opacity="0.4"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="16">
+                    <Label Text="Personalização do Gráfico" FontAttributes="Bold" FontSize="18" TextColor="MediumPurple"/>
+
+                    <HorizontalStackLayout Spacing="16">
+                        <Label Text="Estilo da Linha:" VerticalOptions="Center"/>
+                        <Picker Title="Estilo" SelectedIndex="{Binding SelectedLineStyleIndex, Mode=TwoWay}">
+                            <Picker.ItemsSource>
+                                <x:Array Type="{x:Type x:String}">
+                                    <x:String>Sólida</x:String>
+                                    <x:String>Tracejada</x:String>
+                                    <x:String>Pontilhada</x:String>
+                                </x:Array>
+                            </Picker.ItemsSource>
+                        </Picker>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="16">
+                        <Label Text="Espessura:" VerticalOptions="Center"/>
+                        <Slider Minimum="1" Maximum="5" Value="{Binding LineThickness, Mode=TwoWay}" WidthRequest="120"/>
+                        <Label Text="{Binding LineThickness, StringFormat='{0:F1}'}" WidthRequest="40" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="8">
+                        <CheckBox IsChecked="{Binding ShowExtremes, Mode=TwoWay}" />
+                        <Label Text="Exibir Máximo/Mínimo" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="16">
+                        <Label Text="Exibir Grid:" VerticalOptions="Center"/>
+                        <Switch IsToggled="{Binding ShowGrid, Mode=TwoWay}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
