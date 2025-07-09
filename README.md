@@ -104,9 +104,11 @@ O BrownieInMotion permite simular e visualizar o comportamento de ativos finance
 ---
 
 ## Estrutura do Projeto
-- BrownieInMotion/ ├── BrownieInMotion/           # Projeto principal MAUI (UI) 
--                  ├── BrownieInMotion.Core/      # Lógica de negócio e ViewModels 
--                  └── BrownieInMotion.Test/      # Testes unitários (xUnit) 
+```bash
+ BrownieInMotion/ ├── BrownieInMotion/           # Projeto principal MAUI (UI) 
+                  ├── BrownieInMotion.Core/      # Lógica de negócio e ViewModels 
+                  └── BrownieInMotion.Test/      # Testes unitários (xUnit)
+```
 
 ---
 
