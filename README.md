@@ -99,7 +99,7 @@ O BrownieInMotion permite simular e visualizar o comportamento de ativos finance
 ## Demonstração
 
 - **Gravação de tela:**  
-  [Clique aqui para assistir à demonstração da aplicação](./docs/demo.mp4)
+  [Clique aqui para assistir à demonstração da aplicação](https://1drv.ms/v/c/978b666ce011e57b/EbcvTt-qP-xDg-xvUT--lQ8BklNUP-9AuZhXOWZuHt7HoQ?e=iOr0G0)
 
 ---
 
