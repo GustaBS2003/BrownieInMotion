@@ -54,7 +54,7 @@ O BrownieInMotion permite simular e visualizar o comportamento de ativos finance
 
 2. **Clone o repositório:**
   ```bash
-  git clone https://github.com/GustaBS2003/Teste-Tecnico-BTG-Pactual-.git
+  git clone https://github.com/GustaBS2003/BrownieInMotion.git
   ```
 
 3. **Restaure os pacotes:**
@@ -104,9 +104,9 @@ O BrownieInMotion permite simular e visualizar o comportamento de ativos finance
 ---
 
 ## Estrutura do Projeto
-BrownieInMotion/ ├── BrownieInMotion/           # Projeto principal MAUI (UI) 
-                 ├── BrownieInMotion.Core/      # Lógica de negócio e ViewModels 
-                 └── BrownieInMotion.Test/      # Testes unitários (xUnit) 
+- BrownieInMotion/ ├── BrownieInMotion/           # Projeto principal MAUI (UI) 
+-                  ├── BrownieInMotion.Core/      # Lógica de negócio e ViewModels 
+-                  └── BrownieInMotion.Test/      # Testes unitários (xUnit) 
 
 ---
 
